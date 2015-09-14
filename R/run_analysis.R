@@ -28,8 +28,8 @@ X <- cbind(y, X);
 
 X1 <- X2 <- y1 <- y2 <- s1 <- s2 <-y <- feature <- NULL;
 # 2. Extract the measurements on the mean and standard deviation for each measurement. 
-meanCol <- grepl("mean", names(X));
-stdCol <- grepl("std", names(X));
+meanCol <- grepl("-mean()", names(X), fixed = TRUE);
+stdCol <- grepl("-std()", names(X), fixed = TRUE);
 actCol <- grepl("V1", names(X));      # grabs both subject and activity!!
 W <- X[, meanCol|stdCol|actCol];
 colnames(W)[1:2] <- c("subject", "activity");
