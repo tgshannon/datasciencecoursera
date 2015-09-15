@@ -44,6 +44,7 @@ X$subject <- factor(X$subject);
 # 5. create an independent tidy dataset with the average of each variable 
 #      by subject and activity
 
+require("reshape2");
 tidy <- melt(X, id = names(X[1:2]), measure.vars = names(X[3:length((X))]));
 tidy <- aggregate(tidy$value, list(tidy$subject, tidy$activity, tidy$variable), mean);
 colnames(tidy) <- c("Subject", "Activity", "Feature", "Value");

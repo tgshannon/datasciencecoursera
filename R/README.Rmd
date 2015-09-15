@@ -6,6 +6,39 @@ output:
   html_document: 
     keep_md: yes
 ---
+This README file provides instructions for running "run_analysis.R" to create a tidy dataset from the data in several files of the UCI HAR Dataset.
+
+These files can be downloaded from the following link:
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
+
+The zip archive should be expanded and the resulting "UCI HAR Dataset" folder copied to your project directory. The R working directory should be set to the UCI HAR Dataset folder before sourcing the run_analysis.R file.
+
+Sourcing the "run_analysis.R"" file will combine the data from various files in the UCI HAR Dataset folder to create a tidy dataset as outlined below. Files should remain in the subfolders they were in when the the zip archive was expanded; e.g. do not remove or rename the test and training folders.
+
+The requirements of the project are to combine test and training data, keep only measurements of mean or standard deviation, and use descriptive activity names. Measurement variables are appropriately labeled using the "feature.txt" file. More information about these labels is available in the "feature_info.txt" file.
+
+Outline of run_analysis.R
+* read "features.txt" file
+* read data text files from subdirectories test and train
+* combine X data using rbind()
+* add labels to X data using features and colnames()
+* combine the y data and subject data using rbind() and cbind()
+* combine y data and X data using cbind()
+* create logical vector for mean() and std() feature columns using grepl()
+* subset X using logical vectors
+* add column labels for subject and activity
+* read activity labels 
+* replace activity numeric values with activity labels factors
+* set subject column as a factor
+
+At this point X is a wide tidy dataset containing only mean() and std() feature measurements and descriptive activity names for both the test and training datasets. X also contains the subject id because it is needed to create another tidy dataset.
+
+
+
+
+
+
+
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
