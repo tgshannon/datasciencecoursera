@@ -17,7 +17,7 @@
 feature <- read.table('features.txt');
 X1 <- read.table('test/X_test.txt');
 X2 <- read.table('train/X_train.txt');
-X <- rbind(X1, X2);
+X <- rbind(X1, X2);                   # combine test and training data
 colnames(X) <- feature$V2;            # 4. label variable names with descriptive labels
 y1 <- read.table('test/y_test.txt');
 y2 <- read.table('train/y_train.txt');
@@ -31,7 +31,7 @@ X1 <- X2 <- y1 <- y2 <- s1 <- s2 <-y <- NULL;
 meanCol <- grepl("-mean()", names(X), fixed = TRUE);
 stdCol <- grepl("-std()", names(X), fixed = TRUE);
 actCol <- grepl("V1", names(X));      # grabs both subject and activity!!
-X <- X[, meanCol|stdCol|actCol];
+X <- X[, meanCol|stdCol|actCol];      # logical array of columns to keep
 colnames(X)[1:2] <- c("subject", "activity");
 
 # 3. Use descriptive activity names to name the activities in the data set
@@ -40,9 +40,11 @@ lbls <- read.table('activity_labels.txt');
 X$activity <- factor(X$activity, levels = lbls$V1, labels = lbls$V2);
 X$subject <- factor(X$subject);
 
+# 4. label variable names with descriptive labels
 # 5. create an independent tidy dataset with the average of each variable 
 #      by subject and activity
 
 tidy <- melt(X, id = names(X[1:2]), measure.vars = names(X[3:length((X))]));
 tidy <- aggregate(tidy$value, list(tidy$subject, tidy$activity, tidy$variable), mean);
+colnames(tidy) <- c("Subject", "Activity", "Feature", "Value");
 str(tidy);
