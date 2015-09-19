@@ -83,46 +83,19 @@ http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartpho
 
 ##Creating the tidy datafile
 
-###Guide to create the tidy data file
-Description on how to create the tidy data file (1. download the data, ...)/
-
 ###Cleaning of the data
-Short, high-level description of what the cleaning script does. [link to the readme document that describes the code in greater detail]()
+Detailed instructions for cleaning the data are provided in the README file. The basic flow of the process is to combine the X datasets from training and test, add feature labels to the X data frame, add the activity and subject columns to the X data frame, and finally extract the -mean() and -std() feature measurements.
 
 ##Description of the variables in the tiny_data.txt file
-General description of the file including:
- - Dimensions of the dataset
- - Summary of the data
- - Variables present in the dataset
 There are two tidy datasets provided by this script: X and tidy. The X dataset consists of 10299 observations of 68 variables; 66 of the variables are feature variables from the provided raw data, a subject and activity variable has been added to each observation. 
 
 The "tidy" dataset consists of 11880 observations of 4 variables. This dataset is a narrow tidy dataset that has the average for each of the 66 feature variable broken down by the 30 subjects and 6 activities (30 x 6 x 66 = 11880).
 
-(you can easily use Rcode for this, just load the dataset and provide the information directly form the tidy data file)
-```{r head(tidy)}
-```
-
-###Variable 1 (repeat this section for all variables in the dataset)
-Short description of what the variable describes.
 ### Variable 1 - Subject
-30 subjects participated in the experiments. Each subject performed each activity several times. Each observation has a subject column as a factor
+30 subjects participated in the experiments. Each subject performed each activity several times. Each observation has a subject column as a factor.
+
 ### Variable 2 - Activity
 There were six activities performed by each of the 30 subjects. Each observation has an activity column as a factor.
+
 ### Variable 3 - 68 "measurement"-mean()
 There are 66 feature "measurements" variable means broken down by subject and activity as a numeric value.
-Some information on the variable including:
- - Class of the variable
- - Unique values/levels of the variable
- - Unit of measurement (if no unit of measurement list this as well)
- - In case names follow some schema, describe how entries were constructed (for example time-body-gyroscope-z has 4 levels of descriptors. Describe these 4 levels). 
-
-(you can easily use Rcode for this, just load the dataset and provide the information directly form the tidy data file)
-
-####Notes on variable 1:
-If available, some additional notes on the variable not covered elsewehere. If no notes are present leave this section out.
-
-##Sources
-Sources you used if any, otherise leave out.
-
-##Annex
-If you used any code in the codebook that had the echo=FALSE attribute post this here (make sure you set the results parameter to 'hide' as you do not want the results to show again)
