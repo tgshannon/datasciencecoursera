@@ -8,15 +8,78 @@ output:
 ---
 
 ## Project Description
-Short description of the project
+Class project for Coursera Data Science course: Getting and Cleaning Data
 
 ##Study design and data processing
+The objective of the project is to provide a subset of data containing only mean() and std() features of the provided data in a tidy dataset.
 
 ###Collection of the raw data
 Description of how the data was collected.
+The raw data consists of 561 feature measurements separated into training and test files. Corresponding files containing the subject and activity for each observation are provided in separate files.
 
 ###Notes on the original (raw) data 
 Some additional notes (if avaialble, otherwise you can leave this section out).
+###Feature Selection 
+The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
+
+Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag). 
+
+Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the 'f' to indicate frequency domain signals). 
+
+These signals were used to estimate variables of the feature vector for each pattern:  
+'-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
+
+tBodyAcc-XYZ
+tGravityAcc-XYZ
+tBodyAccJerk-XYZ
+tBodyGyro-XYZ
+tBodyGyroJerk-XYZ
+tBodyAccMag
+tGravityAccMag
+tBodyAccJerkMag
+tBodyGyroMag
+tBodyGyroJerkMag
+fBodyAcc-XYZ
+fBodyAccJerk-XYZ
+fBodyGyro-XYZ
+fBodyAccMag
+fBodyAccJerkMag
+fBodyGyroMag
+fBodyGyroJerkMag
+
+The set of variables that were estimated from these signals are: 
+
+mean(): Mean value
+std(): Standard deviation
+mad(): Median absolute deviation 
+max(): Largest value in array
+min(): Smallest value in array
+sma(): Signal magnitude area
+energy(): Energy measure. Sum of the squares divided by the number of values. 
+iqr(): Interquartile range 
+entropy(): Signal entropy
+arCoeff(): Autorregresion coefficients with Burg order equal to 4
+correlation(): correlation coefficient between two signals
+maxInds(): index of the frequency component with largest magnitude
+meanFreq(): Weighted average of the frequency components to obtain a mean frequency
+skewness(): skewness of the frequency domain signal 
+kurtosis(): kurtosis of the frequency domain signal 
+bandsEnergy(): Energy of a frequency interval within the 64 bins of the FFT of each window.
+angle(): Angle between to vectors.
+
+Additional vectors obtained by averaging the signals in a signal window sample. These are used on the angle() variable:
+
+gravityMean
+tBodyAccMean
+tBodyAccJerkMean
+tBodyGyroMean
+tBodyGyroJerkMean
+
+The complete list of variables of each feature vector is available in 'features.txt'.
+
+More details are available at the following link:
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
+
 
 ##Creating the tidy datafile
 
@@ -31,12 +94,22 @@ General description of the file including:
  - Dimensions of the dataset
  - Summary of the data
  - Variables present in the dataset
+There are two tidy datasets provided by this script: X and tidy. The X dataset consists of 10299 observations of 68 variables; 66 of the variables are feature variables from the provided raw data, a subject and activity variable has been added to each observation. 
+
+The "tidy" dataset consists of 11880 observations of 4 variables. This dataset is a narrow tidy dataset that has the average for each of the 66 feature variable broken down by the 30 subjects and 6 activities (30 x 6 x 66 = 11880).
 
 (you can easily use Rcode for this, just load the dataset and provide the information directly form the tidy data file)
+```{r head(tidy)}
+```
 
 ###Variable 1 (repeat this section for all variables in the dataset)
 Short description of what the variable describes.
-
+### Variable 1 - Subject
+30 subjects participated in the experiments. Each subject performed each activity several times. Each observation has a subject column as a factor
+### Variable 2 - Activity
+There were six activities performed by each of the 30 subjects. Each observation has an activity column as a factor.
+### Variable 3 - 68 "measurement"-mean()
+There are 66 feature "measurements" variable means broken down by subject and activity as a numeric value.
 Some information on the variable including:
  - Class of the variable
  - Unique values/levels of the variable
