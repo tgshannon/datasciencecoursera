@@ -1,22 +1,45 @@
 ---
-title: "Investigating Statistical Inference using built in R functions."
+title: "Demonstration of Law of Large Numbers and Central Limit Theorem using exponential distribution."
 author: "TG Shannon"
-date: "December 8, 2015"
-output: pdf_document
+date: "December 15, 2015"
+output: 
+  pdf_document: 
+    latex_engine: xelatex
 ---
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+# Overview
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Law of Large Numbers tells us the mean of a sample of size n converges to mu, the population mean, as n becomes increasingly large with a probability of 100%.
+
+The Central Limit Theorem tells us that the mean of a large number of iterations of independent random variables, each with a well defined mean and variance, will be approximately normally distributed, regardless of the underlying distribution.
+
+The report will demonstrate the Central Limit Theorem using the exponential distribution. We will use a lambda parameter = 0.2 for the simulation. Therefore, the theoritical mean and standard deviation is 1/0.2 = 5.
+
+# Simulations
 
 ```{r}
-summary(cars)
+lambda <- 0.2
+N <- 1000
+n <- 40
+population <- rexp(N, lambda)
+hist(population, main = "Distribution of Simulated Population")
 ```
 
-You can also embed plots, for example:
+The mean of the simulated population is `r mean(population)` and the standard deviation is `r sd(population)` compared to the theoritical values of `r 1/lambda`. The simulated population is a good representation of the theoritical population, and is clearly not normally distributed.
 
-```{r, echo=FALSE}
-plot(cars)
+```{r}
+samples <- matrix(rexp(N*n,lambda), N)
+sample_vars <- apply(samples, 1, var)
+sample_means <- apply(samples, 1, mean)
+h<-hist(sample_means, breaks=10, density=10, col="gray", xlab="Sample mean", main="Distribution of Sample Means")
+xfit<-seq(min(sample_means),max(sample_means),length=n)
+yfit<-dnorm(xfit,mean=mean(sample_means),sd=sd(sample_means))
+yfit <- yfit*diff(h$mids[1:2])*length(sample_means)
+lines(xfit, yfit, col="blue", lwd=2)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+The mean of the sample means is `r mean(sample_means)` compared with the theorical population mean of `r 1/lambda`, and the predicted standard error of the mean is `r 1/lambda/sqrt(n)` compared with the calculated value of `r sd(sample_means)`. The 95% confidence interval for the mean of the sample means distribution is 
+`r mean(sample_means) + c(-1,1)*qnorm(.975) * 2*sd(sample_means)/sqrt(length(sample_means)) `,
+which contains the theoritical population mean of `r 1/lambda`.
+
+The distribution of sample means is shown to be normally distributed with sample mean equal to the population mean, and sample standard distribution equal to the population standard error for a sample size of `r n`.
